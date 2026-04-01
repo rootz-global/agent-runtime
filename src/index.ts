@@ -39,3 +39,15 @@ export {
   SkillRegistry,
 } from './skill-loader.js';
 export type { SkillValidationResult, LoadedSkill } from './skill-loader.js';
+
+// Zod Schemas — runtime validation for manifests, birth certs, settlements
+export {
+  SkillManifestSchema,
+  SkillPermissionsSchema,
+  AgentBirthCertificateSchema,
+  UnifiedSettlementSchema,
+  AgentCheckpointSchema,
+  validateSkillManifest,
+  validateBirthCertificate,
+  validateSettlement,
+} from './schemas.js';
