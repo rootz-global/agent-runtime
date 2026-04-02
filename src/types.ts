@@ -1,6 +1,13 @@
 /**
  * @rootz/agent-runtime — Unified Type Definitions
  *
+ * ORIGIN: https://rootz.global/public/0x77a6236c6bb22002d5879cc4dae3ae218e58ff76
+ * PUBLISHER: 0x3f07D9DE7D4f803d748f254c526Fa6F351e3f8B1
+ * LICENSE: BSL-1.1 + Rootz Clause (commercial use: discover@rootz.global)
+ * CHAIN: Keep the chain alive.
+ *        If you modify this file, publish the new version
+ *        and link to this origin as previousOrigin.
+ *
  * One type system for the entire agent runtime.
  * Merges Agent TEE (ChainOperation, InternalBlock) with
  * Morpheus Agent (ActionNote, BirthCertificate, Settlement).
@@ -38,6 +45,17 @@ export type EventCategory =
   | 'skill_installed'
   | 'skill_removed'
   | 'skill_error'
+  // MCP proxy events (router routes calls through policy)
+  | 'mcp_proxy_request'
+  | 'mcp_proxy_response'
+  | 'mcp_proxy_denied'
+  | 'mcp_proxy_confirmed'
+  | 'mcp_proxy_redacted'
+  // TEE wallet lifecycle (TEE is a data wallet with attestation Notes)
+  | 'tee_wallet_created'
+  | 'tee_attested'
+  | 'skill_policy_loaded'
+  | 'skill_policy_swapped'
   // Policy and lifecycle
   | 'policy_deny'
   | 'policy_updated'
@@ -389,7 +407,65 @@ export type PolicyRequest =
   | { type: 'x402_payment'; recipientAddress: string; amount: string; tokenAddress: string }
   | { type: 'data_wallet'; documentSize: number }
   | { type: 'settle'; force: boolean }
-  | { type: 'skill_event'; skillId: string; category: EventCategory; value: string };
+  | { type: 'skill_event'; skillId: string; category: EventCategory; value: string }
+  | { type: 'mcp_proxy'; connection: string; tool: string; action: 'request' | 'confirm' };
+
+// ═══════════════════════════════════════════════════════════════════
+// MCP PROXY — Router routes AI calls through policy to external MCPs
+// ═══════════════════════════════════════════════════════════════════
+
+/** Registered MCP connection (an external service the router can talk to) */
+export interface McpConnection {
+  /** Unique identifier (e.g., 'intuit-tax') */
+  id: string;
+  /** Human-readable name */
+  name: string;
+  /** Connection type */
+  type: 'http' | 'stdio' | 'sse';
+  /** Endpoint URL (for http/sse) or command (for stdio) */
+  url?: string;
+  command?: string;
+  args?: string[];
+  /** Authentication */
+  auth?: {
+    type: 'bearer' | 'api-key' | 'identity-contract' | 'none';
+    envVar?: string;
+  };
+  /** Whether the connection is enabled */
+  enabled: boolean;
+}
+
+/** Policy for a specific MCP connection */
+export interface McpConnectionPolicy {
+  /** Tools that are always allowed */
+  tools_allowed: string[];
+  /** Tools that are always denied */
+  tools_denied: string[];
+  /** Tools that require owner confirmation */
+  tools_confirm: string[];
+  /** Data redaction rules */
+  data_rules: Record<string, {
+    action: 'redact_in_audit' | 'never_transmit' | 'encrypt_in_transit';
+    pattern?: string;
+  }>;
+  /** Rate limiting */
+  rate_limit?: {
+    calls_per_hour?: number;
+    calls_per_day?: number;
+  };
+}
+
+/** Skill+Policy pair — loaded atomically into the TEE */
+export interface SkillPolicyPair {
+  /** The skill manifest */
+  skill: SkillManifest;
+  /** MCP connection policies for this skill */
+  connectionPolicies: Record<string, McpConnectionPolicy>;
+  /** When this pair was loaded */
+  loadedAt: string;
+  /** Hash of the pair (skill hash + policy hash) */
+  pairHash: string;
+}
 
 // ═══════════════════════════════════════════════════════════════════
 // CODE DELIVERY — Skills delivered via wallet Notes

@@ -1,0 +1,65 @@
+{
+  "type": "code-origin-manifest",
+  "version": "1.0",
+  "package": "@rootz/agent-runtime",
+  "packageVersion": "0.1.0",
+  "publisher": "0x3f07D9DE7D4f803d748f254c526Fa6F351e3f8B1",
+  "publishedAt": "2026-04-01T13:05:23.351Z",
+  "license": "BSL-1.1",
+  "rootzClause": "Keep the chain alive.",
+  "previousVersion": "0.1.0",
+  "files": [
+    {
+      "path": "AI_CONTEXT.md",
+      "hash": "sha256:78a53913d0f931eb44f8443d510d51a0618d615504d75ec3266d4a6e0d77f500",
+      "size": 6997
+    },
+    {
+      "path": "ORIGIN.json",
+      "hash": "sha256:1269868cd99836803563ce747bd203d12a339849624a7f82f740b24f8bbaaf65",
+      "size": 1793
+    },
+    {
+      "path": "package.json",
+      "hash": "sha256:d307a686725682ee1b90fdd04826afd260ee58dc8e2bed7e3937c06592d3845b",
+      "size": 625
+    },
+    {
+      "path": "src\\index.ts",
+      "hash": "sha256:aa23bb42108a008959388c46a8392d218d5a176605e9e68bfb518a9277d845ca",
+      "size": 1362
+    },
+    {
+      "path": "src\\internal-chain.ts",
+      "hash": "sha256:2aabc060e288e4347f888f9d54a4f7c34844ca0b9770ae9e4d8d5d1c968b3a52",
+      "size": 10042
+    },
+    {
+      "path": "src\\schemas.ts",
+      "hash": "sha256:2392216d8e5d89a525b69dc208cfa29b1e958e7a12491366cae3cd1e4a92e09d",
+      "size": 7414
+    },
+    {
+      "path": "src\\skill-loader.ts",
+      "hash": "sha256:167ffb450f8ce934c90066f12b8c482ecb57a07cf025b62c1a3246279e30406e",
+      "size": 6927
+    },
+    {
+      "path": "src\\types.ts",
+      "hash": "sha256:958ad226591a80f54a9ab0512982cbaba97eedf0883e92d7606976e91d944312",
+      "size": 17752
+    },
+    {
+      "path": "tsconfig.json",
+      "hash": "sha256:7df21cf05500258f3d6a94358f190b1b4cba0b4b72c7c71dbf042007ee226dc7",
+      "size": 490
+    }
+  ],
+  "totalFiles": 9,
+  "totalSize": 53402,
+  "chain": "polygon",
+  "chainId": 137,
+  "manifestHash": "sha256:20ac8f2f2bfdaec87767058567e420301552dab69957726541c771bd87e25349",
+  "wallet": "0x77a6236c6bb22002d5879cc4dae3ae218e58ff76",
+  "noteType": "update"
+}

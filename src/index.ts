@@ -26,6 +26,10 @@ export type {
   CodeDeliveryNote,
   RevocationNote,
   AttestationReport,
+  // MCP Proxy types
+  McpConnection,
+  McpConnectionPolicy,
+  SkillPolicyPair,
 } from './types.js';
 
 // Internal Chain — the single Merkle ledger

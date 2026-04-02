@@ -1,6 +1,11 @@
 /**
  * Internal Chain — Unified Append-Only Merkle Ledger
  *
+ * ORIGIN: https://rootz.global/public/0x77a6236c6bb22002d5879cc4dae3ae218e58ff76
+ * PUBLISHER: 0x3f07D9DE7D4f803d748f254c526Fa6F351e3f8B1
+ * LICENSE: BSL-1.1 + Rootz Clause (commercial use: discover@rootz.global)
+ * CHAIN: Keep the chain alive.
+ *
  * Moved from apps/agent-tee and extended for the unified runtime.
  * Records ALL operations: TEE container ops, wallet ops, and skill events.
  * One chain for the agent's entire life.
